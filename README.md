@@ -98,16 +98,17 @@ el.setScroll([{ title:'标题 Title', subtitle:'副标题 Subtitle' }]);
 
 ```
 ├── build.mjs              # esbuild 构建脚本 / esbuild build script
+├── package.json           # 所需依赖与脚本    / dependencies and scripts
+├── pnpm-workspace.yaml    # pnpm 设置       / pnpm settings
 ├── src-bundle/
 │   ├── liquid-glass.ts    # Web Component 自定义元素 / Custom Element
 │   └── empty-react.ts     # React 别名为空桩 / React alias stub
-├── liquid-glass/src/components/liquid-glass/
-│   ├── renderer/          # WebGL 渲染器 / WebGL renderer
-│   ├── catalog/           # 各组件 builder / Component builders
-│   ├── shaders/           # GLSL 着色器 / GLSL shaders
-│   ├── shapes/            # 玻璃形状 / Glass shapes
-│   ├── context.tsx        # 手势交互系统 / Gesture interaction system
-│   └── catalog.tsx        # 组件路由 / Component router
+├── catalog/               # 各组件 builder / Component builders
+├── renderer/              # WebGL 渲染器 / WebGL renderer
+├── shaders/               # GLSL 着色器 / GLSL shaders
+├── shapes/                # 玻璃形状 / Glass shapes
+├── context.tsx            # 手势交互系统 / Gesture interaction system
+├── catalog.tsx            # 组件路由 / Component router
 └── README.md
 ```
 
@@ -116,8 +117,15 @@ el.setScroll([{ title:'标题 Title', subtitle:'副标题 Subtitle' }]);
 ## 构建
 
 ```bash
-npm install esbuild
-node build.mjs
+pnpm install
+pnpm build
+```
+
+或使用 npm :
+
+```
+npm install
+npm run build
 ```
 
 输出 `liquid-glass.js`（~345KB，gzip ~95KB）。部署到 CDN 时将产物放入对应目录即可。
@@ -232,16 +240,17 @@ el.setScroll([{ title:'Title', subtitle:'Subtitle' }]);
 
 ```
 ├── build.mjs              # esbuild build script
+├── package.json           # dependencies & scripts
+├── pnpm-workspace.yaml    # pnpm settings
 ├── src-bundle/
 │   ├── liquid-glass.ts    # Web Component custom element
 │   └── empty-react.ts     # React alias stub
-├── liquid-glass/src/components/liquid-glass/
-│   ├── renderer/          # WebGL renderer
-│   ├── catalog/           # Component builders
-│   ├── shaders/           # GLSL shaders
-│   ├── shapes/            # Glass shapes
-│   ├── context.tsx        # Gesture interaction system
-│   └── catalog.tsx        # Component router
+├── catalog/               # Component builders
+├── renderer/              # WebGL renderer
+├── shaders/               # GLSL shaders
+├── shapes/                # Glass shapes
+├── context.tsx            # Gesture interaction system
+├── catalog.tsx            # Component router
 └── README.md
 ```
 
@@ -250,8 +259,15 @@ el.setScroll([{ title:'Title', subtitle:'Subtitle' }]);
 ## Build
 
 ```bash
-npm install esbuild
-node build.mjs
+pnpm install
+pnpm build
+```
+
+or use npm:
+
+```
+npm install
+npm run build
 ```
 
 Outputs `liquid-glass.js` (~345KB, ~95KB gzipped). Drop the artifact into your CDN directory.

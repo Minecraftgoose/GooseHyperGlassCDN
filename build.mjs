@@ -1,8 +1,9 @@
 // Build script: bundles src-bundle + liquid-glass-webgl into a single
 // browser IIFE. No React — aliased to empty stub.
 //
-// Prerequisites: npm install esbuild
-// Run: node build.mjs
+// before building: pnpm install
+// then run pnpm build or node build.mjs
+// also support npm
 import { build } from 'esbuild'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
