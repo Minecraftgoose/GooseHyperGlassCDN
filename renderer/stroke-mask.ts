@@ -10,29 +10,26 @@
  * current screen resolution every frame, so there is no resolution
  * ceiling, no quantization, and AA is exact (hardware coverage).
  *
- * The mask is drawn to an OffscreenCanvas sized to the element's
+ * The mask is drawn to an HTMLCanvasElement sized to the element's
  * bounding box + margin (not fullscreen — only the stroke region).
+ * (NOT OffscreenCanvas — texImage2D with OffscreenCanvas sources throws
+ * "TypeError: Type error" on iOS Safari WebGL1.)
  * Output: alpha-only mask (white stroke on transparent = alpha = coverage).
  * ------------------------------------------------------------------ */
 
 import { continuousCurvatureRoundedRectPath } from './continuous-curve'
 
-// Offscreen canvas for stroke rasterization. Reused across elements,
+// Canvas for stroke rasterization. Reused across elements,
 // resized as needed. Element-local coordinates (0,0 = element top-left).
-let strokeCanvas: OffscreenCanvas | HTMLCanvasElement | null = null
-let strokeCtx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D | null = null
+let strokeCanvas: HTMLCanvasElement | null = null
+let strokeCtx: CanvasRenderingContext2D | null = null
 
 function ensureCanvas(w: number, h: number) {
-  if (strokeCanvas && (strokeCanvas as HTMLCanvasElement).width >= w && (strokeCanvas as HTMLCanvasElement).height >= h) return
-  if (typeof OffscreenCanvas !== 'undefined') {
-    strokeCanvas = new OffscreenCanvas(w, h)
-    strokeCtx = (strokeCanvas as OffscreenCanvas).getContext('2d', { alpha: true })!
-  } else {
-    strokeCanvas = document.createElement('canvas')
-    ;(strokeCanvas as HTMLCanvasElement).width = w
-    ;(strokeCanvas as HTMLCanvasElement).height = h
-    strokeCtx = (strokeCanvas as HTMLCanvasElement).getContext('2d', { alpha: true })!
-  }
+  if (strokeCanvas && strokeCanvas.width >= w && strokeCanvas.height >= h) return
+  strokeCanvas = document.createElement('canvas')
+  strokeCanvas.width = w
+  strokeCanvas.height = h
+  strokeCtx = strokeCanvas.getContext('2d', { alpha: true })!
 }
 
 /** Generate a stroke mask for a G2 continuous-curvature rounded rect.
@@ -58,9 +55,9 @@ export function generateStrokeMask(
   strokeWidth: number,
   margin: number,
   useG2: boolean
-): { canvas: OffscreenCanvas | HTMLCanvasElement; canvasW: number; canvasH: number; offsetX: number; offsetY: number } {
-  const canvasW = Math.ceil(w + 2 * margin)
-  const canvasH = Math.ceil(h + 2 * margin)
+): { canvas: HTMLCanvasElement; canvasW: number; canvasH: number; offsetX: number; offsetY: number } {
+  const canvasW = Math.max(1, Math.ceil(w + 2 * margin))
+  const canvasH = Math.max(1, Math.ceil(h + 2 * margin))
   ensureCanvas(canvasW, canvasH)
   const ctx = strokeCtx!
   const canvas = strokeCanvas!

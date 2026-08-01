@@ -8,6 +8,7 @@ import {
   gooseUploadMaskTexture,
 } from './inner-shadow-cache'
 import type { GooseInnerShadowMaskParams } from './inner-shadow-mask'
+import { uploadCanvasAsPixels } from './gl-utils'
 import { gooseGenerateInnerShadowMask } from './inner-shadow-mask'
 
 declare module './index' {
@@ -455,7 +456,8 @@ export const glassPostPassMethods = {
           // the top row of the mask.
           gl.bindTexture(gl.TEXTURE_2D, mask.tex)
           gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false)
-          gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, mask.canvas)
+          // iOS-safe upload: raw pixels (Safari 16.4+ canvas texImage2D regression).
+          uploadCanvasAsPixels(gl, mask.canvas)
           gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR)
           gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
           gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE)

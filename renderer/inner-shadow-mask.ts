@@ -12,7 +12,9 @@
  *      The original uses BlurEffect(radius, radius, TileMode.Decal) on the
  *      shadowLayer, NOT BlurMaskFilter. BlurEffect takes sigma directly.)
  *
- * Uses a FRESH OffscreenCanvas for each mask generation call.
+ * Uses a FRESH HTMLCanvasElement for each mask generation call.
+ * (NOT OffscreenCanvas — texImage2D with OffscreenCanvas sources throws
+ * "TypeError: Type error" on iOS Safari WebGL1.)
  * No reusable module-level canvases — this eliminates the bug where old
  * content from previous masks contaminates the blur, and where the
  * texture dimensions don't match the uMaskSize uniform.
@@ -35,7 +37,9 @@ export function gooseBuildInnerShadowPath(
   useG2: boolean
 ): Path2D {
   if (useG2) {
-    const dummyCanvas = new OffscreenCanvas(1, 1)
+    const dummyCanvas = document.createElement('canvas')
+    dummyCanvas.width = 1
+    dummyCanvas.height = 1
     const dummyCtx = dummyCanvas.getContext('2d')!
     return continuousCurvatureRoundedRectPath(dummyCtx, w, h, radius)
   }
@@ -85,7 +89,7 @@ export interface GooseInnerShadowMaskParams {
 /** Result of inner shadow mask generation. */
 export interface GooseInnerShadowMaskResult {
   /** The canvas containing the blurred ring mask (upload to GPU as texture) */
-  canvas: OffscreenCanvas
+  canvas: HTMLCanvasElement
   /** Mask width in 1× device px (logical mask space) */
   maskW: number
   /** Mask height in 1× device px (logical mask space) */
@@ -94,9 +98,11 @@ export interface GooseInnerShadowMaskResult {
   margin: number
 }
 
-/** Create a fresh OffscreenCanvas with a 2D context. */
-function gooseCreateMaskCanvas(w: number, h: number): { canvas: OffscreenCanvas; ctx: OffscreenCanvasRenderingContext2D } {
-  const canvas = new OffscreenCanvas(w, h)
+/** Create a fresh HTMLCanvasElement with a 2D context. */
+function gooseCreateMaskCanvas(w: number, h: number): { canvas: HTMLCanvasElement; ctx: CanvasRenderingContext2D } {
+  const canvas = document.createElement('canvas')
+  canvas.width = w
+  canvas.height = h
   const ctx = canvas.getContext('2d', { alpha: true })!
   return { canvas, ctx }
 }

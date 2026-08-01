@@ -10,6 +10,7 @@
  * ------------------------------------------------------------------ */
 
 import type { GooseInnerShadowMaskParams, GooseInnerShadowMaskResult } from './inner-shadow-mask'
+import { uploadCanvasAsPixels } from './gl-utils'
 
 /** Cache entry for an inner shadow mask texture. */
 export interface GooseInnerShadowCacheEntry {
@@ -86,7 +87,9 @@ export function gooseUploadMaskTexture(
 ): void {
   gl.bindTexture(gl.TEXTURE_2D, entry.tex)
   gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false)
-  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, result.canvas)
+  // iOS-safe upload: raw pixels, not the canvas source (Safari 16.4+
+  // WebKit regression throws "TypeError: Type error" on canvas texImage2D).
+  uploadCanvasAsPixels(gl, result.canvas)
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR)
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE)

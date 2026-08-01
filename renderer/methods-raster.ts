@@ -1,6 +1,6 @@
 import type { LiquidGlassRenderer } from './index'
 import type { GooseElement } from './types'
-import { wrapText } from './gl-utils'
+import { wrapText, uploadCanvasAsPixels } from './gl-utils'
 
 declare module './index' {
   interface LiquidGlassRenderer {
@@ -270,14 +270,11 @@ export const rasterMethods = {
       this.fgTextures.set(id, tex)
     }
     gl.bindTexture(gl.TEXTURE_2D, tex)
-    // The 2D canvas backing store is premultiplied alpha. Upload it as
-    // premultiplied so the GPU doesn't un-premultiply (which loses
-    // precision in low-alpha halo pixels and produces dark fringes
-    // when the texture is then re-premultiplied during blending).
-    // Paired with blendFunc(ONE, ONE_MINUS_SRC_ALPHA) at the draw site.
-    gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true)
+    // iOS-safe upload: raw pixels with manual premultiply (Safari 16.4+
+    // canvas texImage2D regression; UNPACK_PREMULTIPLY_ALPHA_WEBGL is
+    // ignored for ArrayBufferView sources, so premultiply manually).
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false)
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, this.fgCanvas)
+    uploadCanvasAsPixels(gl, this.fgCanvas, true)
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR)
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE)

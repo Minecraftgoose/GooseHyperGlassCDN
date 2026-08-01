@@ -1,7 +1,47 @@
 /* ------------------------------------------------------------------ *
- * WebGL helpers — shader compilation, program linking, and a small
- * word-wrap helper used by the text rasterizer.
+ * WebGL helpers — shader compilation, program linking, canvas→texture
+ * pixel upload (iOS-safe), and a small word-wrap helper.
  * ------------------------------------------------------------------ */
+
+/**
+ * Upload a 2D canvas as raw RGBA pixels (ArrayBufferView), bypassing the
+ * canvas-source path entirely.
+ *
+ * WHY: Safari/iOS 16.4+ (WebKit regression) throws
+ *   "TypeError: Type error" from texImage2D when the source is an
+ *   HTMLCanvasElement (esp. non-power-of-two sizes and canvases drawn
+ *   with ctx.filter). Uploading via getImageData + Uint8Array avoids
+ *   every canvas-source code path and works on all platforms.
+ *
+ * `premultiply` manually premultiplies the alpha into RGB to preserve
+ * the exact semantics of UNPACK_PREMULTIPLY_ALPHA_WEBGL=true (that
+ * pixel-store flag is ignored for ArrayBufferView sources).
+ */
+export function uploadCanvasAsPixels(
+  gl: WebGLRenderingContext,
+  canvas: HTMLCanvasElement,
+  premultiply = false
+): void {
+  const w = Math.max(1, canvas.width)
+  const h = Math.max(1, canvas.height)
+  const ctx = canvas.getContext('2d')
+  if (!ctx) {
+    // Fallback: direct canvas source (works on desktop browsers).
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, canvas)
+    return
+  }
+  const img = ctx.getImageData(0, 0, w, h)
+  const data = img.data as Uint8Array
+  if (premultiply) {
+    for (let i = 0; i < data.length; i += 4) {
+      const a = data[i + 3] / 255
+      data[i] = (data[i] * a) | 0
+      data[i + 1] = (data[i + 1] * a) | 0
+      data[i + 2] = (data[i + 2] * a) | 0
+    }
+  }
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, w, h, 0, gl.RGBA, gl.UNSIGNED_BYTE, data)
+}
 
 export function compileShader(
   gl: WebGLRenderingContext,
