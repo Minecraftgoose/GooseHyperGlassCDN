@@ -1,0 +1,49 @@
+name: Star Celebration
+
+on:
+  watch:
+    types: [started]
+
+permissions:
+  issues: write
+
+jobs:
+  celebrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get star count
+        id: stars
+        run: |
+          count=$(curl -s https://api.github.com/repos/${{ github.repository }} | python3 -c "import json,sys;print(json.load(sys.stdin)['stargazers_count'])")
+          echo "stars=$count" >> "$GITHUB_OUTPUT"
+
+      - name: Open celebration issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const stars = ${{ steps.stars.outputs.stars }};
+            const messages = [
+              `仓库达到 **${stars} 颗星**！鹅心甚慰，今晚加餐。`,
+              `⭐ ${stars} 颗星了！鹅在家门口挂了个横幅。`,
+              `又有人给鹅送星星，现在一共 **${stars}** 颗，鹅决定把这颗星焊死在玻璃上。`,
+            ];
+            const msg = messages[Math.floor(Math.random() * messages.length)];
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'star-party',
+            });
+            if (issues.data.length > 0) {
+              console.log('Party already going on, skip');
+              return;
+            }
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `⭐ ${stars} 星，鹅的玻璃又亮了一点`,
+              body: `${msg}\n\n> 本 Issue 由 Star Celebration workflow 自动生成，纯属自嗨，可忽略。`,
+              labels: ['star-party'],
+            });
