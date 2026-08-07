@@ -1,0 +1,39 @@
+name: April Fools
+
+on:
+  schedule:
+    - cron: "0 0 1 4 *"
+    - cron: "0 0 2 4 *"
+
+permissions:
+  contents: write
+
+jobs:
+  prank:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Determine prank or restore
+        id: decide
+        run: |
+          day=$(date -u +%d)
+          echo "day=$day" >> "$GITHUB_OUTPUT"
+
+      - name: Prank (April 1)
+        if: steps.decide.outputs.day == '01'
+        run: |
+          sed -i 's/# GooseHyperGlassCDN/# GooseHyperGlassCDN Pro Max Ultra (fake edition)/' README.md
+          git config user.name "GooseBot"
+          git config user.email "goose@github.com"
+          git commit -am "🤡 愚人节限定：本仓库今日更名为 GooseHyperGlassCDN Pro Max Ultra（明天自动改回）" --allow-empty
+          git push
+
+      - name: Restore (April 2)
+        if: steps.decide.outputs.day == '02'
+        run: |
+          sed -i 's/# GooseHyperGlassCDN Pro Max Ultra (fake edition)/# GooseHyperGlassCDN/' README.md
+          git config user.name "GooseBot"
+          git config user.email "goose@github.com"
+          git commit -am "😌 愚人节结束，仓库名称已恢复正常" --allow-empty
+          git push
