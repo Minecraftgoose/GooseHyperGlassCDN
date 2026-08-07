@@ -1,0 +1,42 @@
+name: Holiday Greetings
+
+on:
+  schedule:
+    - cron: "0 1 1 1 *"    # 1月1日 元旦
+    - cron: "0 1 16 1 *"   # 春节（固定 1/16 占位，够用就好）
+    - cron: "0 1 30 9 *"   # 中秋（固定 9/30 占位）
+    - cron: "0 1 25 12 *"  # 圣诞节
+
+permissions:
+  issues: write
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Pick greeting
+        id: pick
+        run: |
+          month=$(date -u +%-m)
+          day=$(date -u +%-d)
+          if [ "$month" = "1" ] && [ "$day" = "1" ]; then title="🎉 元旦快乐！"; body="鹅祝大家新的一年，玻璃永不碎，渲染永不卡。";
+          elif [ "$month" = "1" ] && [ "$day" = "16" ]; then title="🧧 春节快乐！"; body="鹅给各位拜年：祝项目 star 暴涨，shader 无 bug。";
+          elif [ "$month" = "9" ] && [ "$day" = "30" ]; then title="🥮 中秋快乐！"; body="鹅赏月赏到一半，想起来给仓库发个祝福：月圆人团圆，玻璃亮晶晶。";
+          elif [ "$month" = "12" ] && [ "$day" = "25" ]; then title="🎄 圣诞快乐！"; body="鹅穿上圣诞装（其实是玻璃做的），祝大家节日快乐！";
+          else title="🦆 鹅的祝福"; body="今天是个好日子，鹅来冒个泡。"; fi
+          echo "title=$title" >> "$GITHUB_OUTPUT"
+          echo "body=$body" >> "$GITHUB_OUTPUT"
+
+      - name: Open greeting issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '${{ steps.pick.outputs.title }}',
+              body: '${{ steps.pick.outputs.body }}\n\n> 鹅的自动祝福，可忽略。',
+              labels: ['holiday'],
+            });
