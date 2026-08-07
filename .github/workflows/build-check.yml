@@ -1,0 +1,47 @@
+name: Build Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build
+        id: build
+        run: node build.mjs
+        continue-on-error: true
+
+      - name: Comment on PR (fail)
+        if: steps.build.outcome == 'failure' && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: [
+                '🦆 **build 挂了，鹅都看不下去了。**',
+                '',
+                '你搁这儿整啥呢？`node build.mjs` 都过不去，',
+                '液态玻璃差点碎一地。修好了再来，鹅等着验收。',
+                '',
+                '```',
+                'Goose: 嘎。',
+                '```',
+              ].join('\n'),
+            });
+
+      - name: Fail the job so the red X shows
+        if: steps.build.outcome == 'failure'
+        run: exit 1
