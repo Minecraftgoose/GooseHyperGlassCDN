@@ -29,7 +29,7 @@ function ensureCanvas(w: number, h: number) {
   strokeCanvas = document.createElement('canvas')
   strokeCanvas.width = w
   strokeCanvas.height = h
-  strokeCtx = strokeCanvas.getContext('2d', { alpha: true })!
+  strokeCtx = strokeCanvas.getContext('2d', { alpha: true, willReadFrequently: true })!
 }
 
 /** Generate a stroke mask for a G2 continuous-curvature rounded rect.

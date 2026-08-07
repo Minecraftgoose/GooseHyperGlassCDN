@@ -388,7 +388,7 @@ export const glassPostPassMethods = {
           const canvas = document.createElement('canvas')
           canvas.width = maskW
           canvas.height = maskH
-          const ctx = canvas.getContext('2d', { alpha: true })
+          const ctx = canvas.getContext('2d', { alpha: true, willReadFrequently: true })
           if (!ctx) throw new Error('2D canvas not supported')
           const tex = gl.createTexture()
           if (!tex) throw new Error('WebGL texture allocation failed')

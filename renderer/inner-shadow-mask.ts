@@ -103,7 +103,7 @@ function gooseCreateMaskCanvas(w: number, h: number): { canvas: HTMLCanvasElemen
   const canvas = document.createElement('canvas')
   canvas.width = w
   canvas.height = h
-  const ctx = canvas.getContext('2d', { alpha: true })!
+  const ctx = canvas.getContext('2d', { alpha: true, willReadFrequently: true })!
   return { canvas, ctx }
 }
 

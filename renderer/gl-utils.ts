@@ -24,7 +24,7 @@ export function uploadCanvasAsPixels(
 ): void {
   const w = Math.max(1, canvas.width)
   const h = Math.max(1, canvas.height)
-  const ctx = canvas.getContext('2d')
+  const ctx = canvas.getContext('2d', { willReadFrequently: true })
   if (!ctx) {
     // Fallback: direct canvas source (works on desktop browsers).
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, canvas)

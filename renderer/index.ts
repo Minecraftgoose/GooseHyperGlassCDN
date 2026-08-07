@@ -308,7 +308,7 @@ export class LiquidGlassRenderer {
 
     // Offscreen 2D canvas for the foreground texture.
     this.fgCanvas = typeof document !== 'undefined' ? document.createElement('canvas') : (null as any)
-    const fgCtx = this.fgCanvas?.getContext('2d', { alpha: true })
+    const fgCtx = this.fgCanvas?.getContext('2d', { alpha: true, willReadFrequently: true })
     if (!fgCtx) throw new Error('2D canvas not supported')
     this.fgCtx = fgCtx
 

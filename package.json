@@ -1,6 +1,6 @@
 {
   "name": "goose-hyper-glass-cdn",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "description": "a pure WebGL liquid glass ui component library",
   "license": "Apache-2.0",
   "type": "module",
