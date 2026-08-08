@@ -17,6 +17,9 @@ jobs:
         with:
           node-version: 20
 
+      - name: Install deps
+        run: npm ci || npm install
+
       - name: Build
         id: build
         run: node build.mjs
