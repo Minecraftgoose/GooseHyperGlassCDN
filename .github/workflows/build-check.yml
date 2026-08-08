@@ -18,7 +18,7 @@ jobs:
           node-version: 20
 
       - name: Install deps
-        run: npm ci || npm install
+        run: npm install --no-save esbuild@^0.28.1
 
       - name: Build
         id: build
