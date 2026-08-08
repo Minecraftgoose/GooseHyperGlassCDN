@@ -6,6 +6,7 @@ on:
     - cron: "0 1 16 1 *"   # 春节（固定 1/16 占位，够用就好）
     - cron: "0 1 30 9 *"   # 中秋（固定 9/30 占位）
     - cron: "0 1 25 12 *"  # 圣诞节
+  workflow_dispatch:
 
 permissions:
   issues: write
