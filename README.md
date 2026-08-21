@@ -7,7 +7,7 @@
 
 <p align="center">
   <a href="https://github.com/Minecraftgoose/GooseHyperGlass/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="Apache License 2.0">
-  <a href="https://glass.goose.cc.cd/liquid-glass.js"><img src="https://img.shields.io/badge/CDN-online-brightgreen.svg" alt="CDN"></a>
+  <a href="https://glass.goose.gs.cn/liquid-glass.js"><img src="https://img.shields.io/badge/CDN-online-brightgreen.svg" alt="CDN"></a>
   <img src="https://img.shields.io/badge/tech-WebGL%201.0-orange.svg" alt="WebGL">
   <img src="https://img.shields.io/badge/zero-deps-9cf.svg" alt="Zero Dependencies">
   <img src="https://img.shields.io/badge/source-582KB%20TypeScript-yellow.svg" alt="TypeScript">
@@ -42,18 +42,18 @@ GooseHyperGlassCDN在其基础上做了：
 
 ## 线上地址
 
-- CDN：`https://glass.goose.cc.cd/liquid-glass.js`
-- 试玩：`https://glass.goose.cc.cd/`
-- 文档：`https://glass.goose.cc.cd/doc/`
+- CDN：`https://glass.goose.gs.cn/liquid-glass.js`
+- 试玩：`https://glass.goose.gs.cn/`
+- 文档：`https://glass.goose.gs.cn/doc/`
 
 ## 快速开始
 
 ```html
-<script src="https://glass.goose.cc.cd/liquid-glass.js"></script>
+<script src="https://glass.goose.gs.cn/liquid-glass.js"></script>
 <liquid-glass mode="single-toggle" style="width:380px;height:200px"></liquid-glass>
 ```
 
-完整接入文档见 [线上文档页](https://glass.goose.cc.cd/doc/)。
+完整接入文档见 [线上文档页](https://glass.goose.gs.cn/doc/)。
 
 ## 组件
 
@@ -113,7 +113,7 @@ el.setScroll([{ title:'标题 Title', subtitle:'副标题 Subtitle' }]);
 └── README.md
 ```
 
-> CDN 部署在 [glass.goose.cc.cd](https://glass.goose.cc.cd)，包含构建产物、试玩页和文档。
+> CDN 部署在 [glass.goose.gs.cn](https://glass.goose.gs.cn)，包含构建产物、试玩页和文档。
 
 ## 构建
 
@@ -153,7 +153,7 @@ Apache License 2.0
 
 <p align="center">
   <a href="https://github.com/Minecraftgoose/GooseHyperGlass/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="Apache License 2.0">
-  <a href="https://glass.goose.cc.cd/liquid-glass.js"><img src="https://img.shields.io/badge/CDN-online-brightgreen.svg" alt="CDN"></a>
+  <a href="https://glass.goose.gs.cn/liquid-glass.js"><img src="https://img.shields.io/badge/CDN-online-brightgreen.svg" alt="CDN"></a>
   <img src="https://img.shields.io/badge/tech-WebGL%201.0-orange.svg" alt="WebGL">
   <img src="https://img.shields.io/badge/zero-deps-9cf.svg" alt="Zero Dependencies">
   <img src="https://img.shields.io/badge/source-582KB%20TypeScript-yellow.svg" alt="TypeScript">
@@ -186,18 +186,18 @@ GooseHyperGlassCDN wraps it with:
 
 ## Live URLs
 
-- CDN: `https://glass.goose.cc.cd/liquid-glass.js`
-- Playground: `https://glass.goose.cc.cd/`
-- Docs: `https://glass.goose.cc.cd/doc/`
+- CDN: `https://glass.goose.gs.cn/liquid-glass.js`
+- Playground: `https://glass.goose.gs.cn/`
+- Docs: `https://glass.goose.gs.cn/doc/`
 
 ## Quick Start
 
 ```html
-<script src="https://glass.goose.cc.cd/liquid-glass.js"></script>
+<script src="https://glass.goose.gs.cn/liquid-glass.js"></script>
 <liquid-glass mode="single-toggle" style="width:380px;height:200px"></liquid-glass>
 ```
 
-Full integration docs: [online documentation](https://glass.goose.cc.cd/doc/).
+Full integration docs: [online documentation](https://glass.goose.gs.cn/doc/).
 
 ## Components
 
@@ -257,7 +257,7 @@ el.setScroll([{ title:'Title', subtitle:'Subtitle' }]);
 └── README.md
 ```
 
-> CDN hosted at [glass.goose.cc.cd](https://glass.goose.cc.cd) with build artifacts, playground, and docs.
+> CDN hosted at [glass.goose.gs.cn](https://glass.goose.gs.cn) with build artifacts, playground, and docs.
 
 ## Build
 
