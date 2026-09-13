@@ -35,9 +35,7 @@
 
 GooseHyperGlassCDN在其基础上做了：
 - Web 端打包成零依赖的 IIFE bundle（esbuild）
-- 抽出 React 依赖为空桩，纯 Custom Element 实现
-- 提供 CDN 部署和静态文档站
-- 加上全中文界面和试玩示例
+- 提供 CDN 和文档站
 - `siri-wave` mode 与 `<liquid-glass-search>` 组件移植自 aaaa-zhen/siri-glsl（MIT）
 
 ## 线上地址
@@ -179,9 +177,6 @@ This project is built on the following upstream:
 
 GooseHyperGlassCDN wraps it with:
 - Zero-dependency IIFE bundle for the web (esbuild)
-- React extracted as an empty stub — pure Custom Element implementation
-- CDN deployment with a static documentation site
-- Full Chinese UI and interactive demos
 - `siri-wave` mode and `<liquid-glass-search>` component ported from aaaa-zhen/siri-glsl (MIT)
 
 ## Live URLs
