@@ -1,0 +1,6 @@
+# robots.txt — GooseHyperGlassCDN2.0
+# Allow all crawlers (search engines, AI agents, archives)
+# Documentation is intentionally public for AI consumption.
+
+User-agent: *
+Allow: /
