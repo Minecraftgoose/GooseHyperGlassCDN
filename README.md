@@ -1,4 +1,4 @@
-# GooseHyperGlassCDN 2.X
+# GooseHyperGlassCDN 2.5
 
 <p align="center">
   <a href="#中文">🇨🇳 中文</a> &nbsp;|&nbsp;
@@ -41,6 +41,7 @@ GooseHyperGlassCDN在其基础上做了：
 ## 线上地址
 
 - CDN：`https://glass.goose.cc.cd/liquid-glass.js`
+  > 备用：`https://glass.goose.bbroot.com`和本仓库的pages
 - 试玩：`https://glass.goose.cc.cd/`
 - 文档：`https://glass.goose.cc.cd/doc/`
 
