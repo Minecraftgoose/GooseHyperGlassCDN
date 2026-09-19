@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+
+  <!-- 主页面 -->
+  <url>
+    <loc>https://github.com/Minecraftgoose/GooseHyperGlass</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://github.com/Minecraftgoose/GooseHyperGlass/raw/main/wallpaper.jpg</image:loc>
+      <image:title>GooseHyperGlassCDN 2.5 液态玻璃 UI 组件演示</image:title>
+      <image:caption>纯 WebGL 渲染的液态玻璃 UI 组件库预览图</image:caption>
+    </image:image>
+  </url>
+
+  <!-- 文档页 -->
+  <url>
+    <loc>https://github.com/Minecraftgoose/GooseHyperGlass/tree/main/doc</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- CDN 资源入口（便于搜索引擎发现 JS 文件，提升技术文档索引） -->
+  <url>
+    <loc>https://glass.goose.cc.cd/liquid-glass.js</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+</urlset>

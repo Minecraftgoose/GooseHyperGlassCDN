@@ -1,0 +1,21 @@
+{
+  "name": "GooseHyperGlassCDN 2.5",
+  "short_name": "GooseGlass",
+  "description": "纯 WebGL 渲染的液态玻璃 UI 组件库。零依赖，一行 script 即用。",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0a0e17",
+  "theme_color": "#0a0e17",
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "./apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

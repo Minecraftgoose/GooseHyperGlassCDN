@@ -1,6 +1,26 @@
-# robots.txt — GooseHyperGlassCDN2.0
-# Allow all crawlers (search engines, AI agents, archives)
-# Documentation is intentionally public for AI consumption.
+# Robots.txt for GooseHyperGlassCDN
+# https://github.com/Minecraftgoose/GooseHyperGlass
 
+# 对所有爬虫开放全站抓取
 User-agent: *
 Allow: /
+
+# 禁止抓取开发/构建产物（避免搜索引擎收录低价值页面）
+Disallow: /node_modules/
+Disallow: /dist/
+Disallow: /.git/
+Disallow: /src/
+Disallow: /build/
+Disallow: /test/
+Disallow: /tests/
+Disallow: /*.map$
+
+# CDN 上的 JS 文件允许抓取（Google 会索引 JS 以理解 SPA 内容）
+Allow: /*.js$
+
+# 告诉所有爬虫 sitemap 位置（也可以放在 HTML 的 <link rel="sitemap">）
+Sitemap: https://github.com/Minecraftgoose/GooseHyperGlass/sitemap.xml
+
+# 主机规范化：指定首选域名（防止 www / 非 www / http / https 分散权重）
+# 如果你的 CDN 有自己的域名，把下面这行换成实际地址
+# Host: https://glass.goose.cc.cd

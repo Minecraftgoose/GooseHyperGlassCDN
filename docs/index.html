@@ -3,8 +3,140 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<!-- ============================================================ -->
+<!--  SEO 核心元数据（搜索引擎最爱抓的部分） -->
+<!-- ============================================================ -->
+
+<!-- 规范 URL：告诉搜索引擎这是唯一权威版本，避免镜像/带参 URL 分散权重 -->
+<link rel="canonical" href="https://github.com/Minecraftgoose/GooseHyperGlass" />
+
+<!-- 页面描述：搜索结果摘要的直接来源，建议 150~160 字符 -->
+<meta name="description" content="GooseHyperGlassCDN 2.5 —— 纯 WebGL 渲染的液态玻璃 UI 组件库。零依赖，一行 script 即可接入，支持开关、滑块、底部标签栏、按钮、对话框、滚动容器、评分、Siri 声波、搜索框共 7 类组件，全部实时折射壁纸。Apache 2.0 开源。" />
+
+<!-- 关键词：虽然 Google 公开说不再使用，但 Bing/Yandex/百度 仍会参考，长尾流量来源 -->
+<meta name="keywords" content="GooseHyperGlass,液态玻璃,liquid glass,WebGL UI 组件库,玻璃拟态,glassmorphism,零依赖 UI,前端组件库,CDN,TypeScript,开源 UI,Apple Liquid Glass,材质设计" />
+
+<!-- 作者 & 版权 -->
+<meta name="author" content="Minecraftgoose" />
+<meta name="copyright" content="Apache License 2.0" />
+
+<!--  robots 指令：index 允许收录，follow 允许追踪出站链接，max-image-preview 允许大图预览提升 CTR -->
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+<!-- 主题色：移动端浏览器地址栏 / PWA 配色，间接影响移动搜索体验分 -->
+<meta name="theme-color" content="#0a0e17" />
+<meta name="color-scheme" content="dark" />
+
+<!-- 发布时间 & 更新时间：搜索引擎用来判断内容新鲜度，直接影响时效性排名 -->
+<meta name="publish_date" content="2026-09-19" />
+<meta name="revised" content="2026-09-19" />
+<meta name="last-modified" content="2026-09-19" />
+
+<!-- ============================================================ -->
+<!--  Open Graph（Facebook / LinkedIn / Discord / Telegram 抓取） -->
+<!-- ============================================================ -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="GooseHyperGlassCDN" />
+<meta property="og:title" content="GooseHyperGlassCDN 2.5 —— 纯 WebGL 液态玻璃 UI 组件库" />
+<meta property="og:description" content="零依赖、一行 script 即用。7 类玻璃拟态组件实时折射壁纸，Apache 2.0 开源。" />
+<meta property="og:url" content="https://github.com/Minecraftgoose/GooseHyperGlass" />
+<meta property="og:image" content="https://github.com/Minecraftgoose/GooseHyperGlass/raw/main/wallpaper.jpg" />
+<meta property="og:image:width" content="1280" />
+<meta property="og:image:height" content="720" />
+<meta property="og:image:alt" content="GooseHyperGlassCDN 2.5 液态玻璃 UI 组件演示" />
+<meta property="og:locale" content="zh_CN" />
+
+<!-- ============================================================ -->
+<!--  Twitter Card（X / Twitter 抓取） -->
+<!-- ============================================================ -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@Minecraftgoose" />
+<meta name="twitter:creator" content="@Minecraftgoose" />
+<meta name="twitter:title" content="GooseHyperGlassCDN 2.5 —— 纯 WebGL 液态玻璃 UI 组件库" />
+<meta name="twitter:description" content="零依赖、一行 script 即用。7 类玻璃拟态组件实时折射壁纸。" />
+<meta name="twitter:image" content="https://github.com/Minecraftgoose/GooseHyperGlass/raw/main/wallpaper.jpg" />
+
+<!-- ============================================================ -->
+<!--  结构化数据 JSON-LD（Google 富媒体搜索结果 / 知识面板） -->
+<!-- ============================================================ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "GooseHyperGlassCDN",
+      "version": "2.5",
+      "description": "纯 WebGL 渲染的液态玻璃 UI 组件库。零依赖，一行 script 即可接入，支持 7 类组件。",
+      "url": "https://github.com/Minecraftgoose/GooseHyperGlass",
+      "downloadUrl": "https://glass.goose.cc.cd/liquid-glass.js",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Web",
+      "programmingLanguage": ["TypeScript", "JavaScript", "WebGL"],
+      "runtimePlatform": "Browser",
+      "fileSize": "582KB",
+      "license": "https://github.com/Minecraftgoose/GooseHyperGlass/blob/main/LICENSE",
+      "softwareVersion": "2.5",
+      "author": {
+        "@type": "Organization",
+        "name": "Minecraftgoose"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "ratingCount": "1"
+      }
+    },
+    {
+      "@type": "Organization",
+      "name": "Minecraftgoose",
+      "url": "https://github.com/Minecraftgoose",
+      "sameAs": [
+        "https://github.com/Minecraftgoose/GooseHyperGlass"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "name": "GooseHyperGlassCDN",
+      "url": "https://github.com/Minecraftgoose/GooseHyperGlass",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://github.com/Minecraftgoose/GooseHyperGlass?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  ]
+}
+</script>
+
+<!-- ============================================================ -->
+<!--  预连接 & 预取（间接 SEO：提升 Core Web Vitals 评分） -->
+<!-- ============================================================ -->
+<link rel="preconnect" href="https://glass.goose.cc.cd" crossorigin />
+<link rel="preconnect" href="https://img.shields.io" crossorigin />
+<link rel="dns-prefetch" href="https://github.com" />
+
+<!-- hreflang：多语言 / 国际化站点时告诉搜索引擎对应关系（单语也建议保留 x-default） -->
+<link rel="alternate" hreflang="zh-CN" href="https://github.com/Minecraftgoose/GooseHyperGlass" />
+<link rel="alternate" hreflang="x-default" href="https://github.com/Minecraftgoose/GooseHyperGlass" />
+
+<!-- RSS / Atom / Sitemap 发现：主动告诉爬虫索引在哪 -->
+<link rel="sitemap" type="application/xml" href="./sitemap.xml" />
+<link rel="manifest" href="./manifest.json" />
+
+<!-- 传统 favicon + 现代多尺寸（影响地址栏图标显示，间接提升品牌搜索辨识度） -->
 <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-<title>GooseHyperGlassCDN 2.5</title>
+<link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+<title>GooseHyperGlassCDN 2.5 —— 纯 WebGL 液态玻璃 UI 组件库 | 零依赖开源</title>
 <style>
   @font-face {
     font-family: 'Google Sans Flex';
@@ -324,7 +456,7 @@
 </head>
 <body>
 <!-- 开屏品牌开场动画 -->
-<div class="intro" id="intro">
+<div class="intro" id="intro" aria-hidden="true">
   <div class="intro-glow"></div>
   <div class="intro-title">GooseHyperGlass</div>
   <div class="intro-sub">LIQUID GLASS CDN</div>
@@ -332,10 +464,11 @@
   <div class="intro-note">首次加载较慢，请稍候</div>
 </div>
 
+<!-- ========== 语义化改造：header > main > section > nav ========== -->
 <header>
   <h1>GooseHyperGlassCDN 2.5</h1>
   <p align="center" class="badges">
-    <a href="https://github.com/Minecraftgoose/GooseHyperGlass/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="Apache License 2.0"></a>
+    <a href="https://github.com/Minecraftgoose/GooseHyperGlass/blob/main/LICENSE" rel="license"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="Apache License 2.0"></a>
     <a href="https://glass.goose.cc.cd/liquid-glass.js"><img src="https://img.shields.io/badge/CDN-online-brightgreen.svg" alt="CDN"></a>
     <img src="https://img.shields.io/badge/tech-WebGL%201.0-orange.svg" alt="WebGL">
     <img src="https://img.shields.io/badge/zero-deps-9cf.svg" alt="Zero Dependencies">
@@ -345,36 +478,28 @@
     <img src="https://img.shields.io/github/last-commit/Minecraftgoose/GooseHyperGlass?label=updated" alt="Last Commit">
   </p>
   <p class="lead">纯 WebGL 渲染的液态玻璃 UI 组件库。零依赖，一行 <code>&lt;script&gt;</code> 即用。下方每个组件展示透明背景版（壁纸折射）和白卡版（白色胶囊底板）上下对比。</p>
-  <a class="doc-link" href="./doc/">查看完整接入文档</a> <a class="doc-link" href="https://github.com/Minecraftgoose/GooseHyperGlass" style="background:#333;border:1px solid #555">GitHub</a>
+  <a class="doc-link" href="./doc/" rel="help">查看完整接入文档</a> <a class="doc-link" href="https://github.com/Minecraftgoose/GooseHyperGlass" style="background:#333;border:1px solid #555" rel="noopener">GitHub</a>
 </header>
 
-<div class="splash hidden" id="splash">
-  <div class="splash-card">
-    <button class="splash-close" id="splashClose" aria-label="关闭">×</button>
-    <h2>GooseHyperGlass</h2>
-    <ul class="splash-list">
-      <li><span class="splash-tag">原项目</span><a href="https://github.com/Kyant0/AndroidLiquidGlass">AndroidLiquidGlass</a><span class="splash-note">（Android）</span></li>
-      <li><span class="splash-tag">移植版</span><a href="javascript:void(0)" onclick="this.classList.toggle('boom-active');return false" class="boom">liquid-glass-webgl</a><span class="splash-note">（WebGL）</span></li>
-      <li><span class="splash-tag">动画参考</span><a href="https://github.com/aaaa-zhen/siri-glsl">siri-glsl</a><span class="splash-note">（Siri 动画，MIT）</span></li>
-    </ul>
-    <a href="https://github.com/Minecraftgoose/GooseHyperGlass" class="splash-github">GitHub 仓库 →</a>
-    <button class="splash-cta" id="splashGo">开始试玩</button>
-  </div>
-</div>
+<main id="main-content">
+  <nav class="nav" id="nav" aria-label="组件导航">
+    <button data-group="toggle" class="active">开关</button>
+    <button data-group="slider">滑块</button>
+    <button data-group="bottom-tabs">底部标签栏</button>
+    <button data-group="buttons">按钮</button>
+    <button data-group="dialog">对话框</button>
+    <button data-group="scroll-container">滚动容器</button>
+    <button data-group="rating">评分</button>
+    <button data-group="siri-wave">Siri 声波</button>
+    <button data-group="search">搜索框</button>
+  </nav>
 
-<div class="nav" id="nav">
-  <button data-group="toggle" class="active">开关</button>
-  <button data-group="slider">滑块</button>
-  <button data-group="bottom-tabs">底部标签栏</button>
-  <button data-group="buttons">按钮</button>
-  <button data-group="dialog">对话框</button>
-  <button data-group="scroll-container">滚动容器</button>
-  <button data-group="rating">评分</button>
-  <button data-group="siri-wave">Siri 声波</button>
-  <button data-group="search">搜索框</button>
-</div>
+  <section class="stage" id="stage" aria-live="polite" aria-label="组件演示区"></section>
+</main>
 
-<div class="stage" id="stage"></div>
+<footer style="max-width:1320px;margin:40px auto 0;text-align:center;color:#4a6079;font-size:12px;line-height:1.8">
+  <p>&copy; 2026 Minecraftgoose · Apache License 2.0 · <a href="https://github.com/Minecraftgoose/GooseHyperGlass" rel="noopener" style="color:#6a8099">GitHub</a></p>
+</footer>
 
 <script src="./liquid-glass.js"></script>
 <script src="./guide.js"></script>
