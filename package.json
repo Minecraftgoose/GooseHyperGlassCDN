@@ -7,8 +7,12 @@
   "files": [
     "liquid-glass.js"
   ],
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
-    "build": "node build.mjs"
+    "build": "node build.mjs",
+    "build:site": "node build-site.mjs"
   },
   "devDependencies": {
     "esbuild": "^0.28.1"

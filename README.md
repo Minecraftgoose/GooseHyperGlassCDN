@@ -130,6 +130,32 @@ npm run build
 
 输出 `liquid-glass.js`（~345KB，gzip ~95KB）。部署到 CDN 时将产物放入对应目录即可。
 
+### 自动构建 / Auto build
+
+仓库已配置 GitHub Actions（`.github/workflows/build.yml`）：push/PR 到主分支时自动执行 `node build.mjs`，
+并把产物覆盖到 `docs/liquid-glass.js` 提交回仓库 —— Pages 从 `docs/` 发布，因此 CDN
+（`https://glass.goose.cc.cd/liquid-glass.js`）会随之更新。手动触发：Actions → Build CDN bundle → Run workflow。
+
+若把 Pages 的 Source 改成 "GitHub Actions"，在仓库变量里设 `DEPLOY_PAGES = true` 即可启用内置的部署任务。
+
+### Cloudflare Pages
+
+站点是纯静态的，Cloudflare Pages 连仓库后按下面的值填即可（每次 push 到 `main` 自动构建）：
+
+| 配置项 | 值 |
+|--------|-----|
+| 框架预设 Framework preset | `无` / None |
+| 生产分支 Production branch | `main` |
+| 构建命令 Build command | `npm install && npm run build:site` |
+| 构建输出目录 Build output directory | `docs` |
+| 根目录 Root directory | 留空 |
+| 环境变量 NODE_VERSION | `20`（**生产与预览两个环境要各设一次**） |
+
+`npm run build:site` 会先 esbuild 打包，再把 `liquid-glass.js` 复制进 `docs/`，
+所以输出目录必须是 `docs` 而不是默认的 `/` —— 填 `/` 会把源码和 `node_modules` 一起发到线上。
+
+自定义域名在 Cloudflare 的 **Custom domains** 里添加；`docs/CNAME` 只对 GitHub Pages 生效，Cloudflare 会忽略它。
+
 ## 技术栈
 
 - WebGL 1.0（Canvas 渲染器 / Canvas renderer）

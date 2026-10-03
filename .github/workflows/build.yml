@@ -1,0 +1,148 @@
+# 自动构建 CDN 产物，并把 liquid-glass.js 同步进 docs/ 目录
+# Build the CDN bundle and sync liquid-glass.js into docs/
+#
+# 流程 / Flow:
+#   1. build      → esbuild 打包，产出根目录 liquid-glass.js
+#   2. sync-docs  → 覆盖 docs/liquid-glass.js 并提交回仓库（Pages 即从 docs/ 发布）
+#   3. deploy-pages（可选）→ 用 GitHub Actions 方式部署 docs/ 到 Pages
+name: Build CDN bundle
+
+on:
+  push:
+    branches: [main, master]
+    paths-ignore:
+      - 'docs/liquid-glass.js'
+      - '**.md'
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+# 同一分支排队执行，避免自动提交互相打架
+concurrency:
+  group: build-cdn-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write   # 提交 docs/liquid-glass.js
+  pages: write      # 可选：Actions 方式部署 Pages
+  id-token: write
+
+jobs:
+  build:
+    name: Build (esbuild)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install deps
+        # lockfile 变动时退化为普通 install，避免 CI 直接红
+        run: pnpm install --frozen-lockfile || pnpm install --no-frozen-lockfile
+
+      - name: Build
+        run: node build.mjs
+
+      - name: Verify output
+        run: |
+          node -e "
+            const fs = require('fs');
+            const file = 'liquid-glass.js';
+            const size = fs.statSync(file).size;
+            const code = fs.readFileSync(file, 'utf8');
+            if (size < 100 * 1024) { console.error('产物过小，构建疑似失败 / bundle too small'); process.exit(1); }
+            if (!code.includes('customElements.define(\"liquid-glass\"')) { console.error('缺少自定义元素注册 / missing custom element'); process.exit(1); }
+            console.log('OK ' + (size / 1024).toFixed(1) + 'kb');
+          "
+
+      - name: Upload bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: liquid-glass
+          path: liquid-glass.js
+          if-no-files-found: error
+          retention-days: 30
+
+  sync-docs:
+    name: Sync bundle into docs/
+    needs: build
+    if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download bundle
+        uses: actions/download-artifact@v4
+        with:
+          name: liquid-glass
+          path: .artifact
+
+      - name: Copy into docs/
+        run: |
+          mkdir -p docs
+          cp .artifact/liquid-glass.js docs/liquid-glass.js
+          ls -l docs/liquid-glass.js
+
+      - name: Commit if changed
+        env:
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f docs/liquid-glass.js
+          if git diff --cached --quiet; then
+            echo "docs/liquid-glass.js 无变化，跳过提交 / no change, skip commit"
+          else
+            git commit -m "chore(cdn): rebuild liquid-glass.js [skip ci]"
+            git push origin "HEAD:$BRANCH"
+          fi
+
+  # 只有当仓库 Settings → Pages → Source 设为 "GitHub Actions" 时才需要这一步
+  # 默认关闭：在仓库变量里设置 DEPLOY_PAGES = true 即可启用
+  deploy-pages:
+    name: Deploy GitHub Pages (optional)
+    needs: sync-docs
+    if: vars.DEPLOY_PAGES == 'true' && github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download bundle
+        uses: actions/download-artifact@v4
+        with:
+          name: liquid-glass
+          path: .artifact
+
+      - name: Assemble docs/
+        run: |
+          mkdir -p docs
+          cp .artifact/liquid-glass.js docs/liquid-glass.js
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+      - name: Deploy to Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
