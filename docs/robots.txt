@@ -1,4 +1,4 @@
-# Robots.txt for GooseHyperGlassCDN
+﻿# Robots.txt for GooseHyperGlassCDN
 # https://github.com/Minecraftgoose/GooseHyperGlass
 
 # 对所有爬虫开放全站抓取
@@ -21,6 +21,4 @@ Allow: /*.js$
 # 告诉所有爬虫 sitemap 位置（也可以放在 HTML 的 <link rel="sitemap">）
 Sitemap: https://github.com/Minecraftgoose/GooseHyperGlass/sitemap.xml
 
-# 主机规范化：指定首选域名（防止 www / 非 www / http / https 分散权重）
-# 如果你的 CDN 有自己的域名，把下面这行换成实际地址
-# Host: https://glass.goose.cc.cd
+Host: https://glass.goose.cc.cd
